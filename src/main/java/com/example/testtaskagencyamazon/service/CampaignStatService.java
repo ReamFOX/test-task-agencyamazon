@@ -38,15 +38,14 @@ public class CampaignStatService {
 
     // Get all campaign reports
     List<SPCampaignReport> reports = campaignReportService
-        .getSPDailyCampaignReports(profileId, portfolioIds, campaignIdsLong, null, startDate, endDate);
+            .getSPDailyCampaignReports(profileId, portfolioIds, campaignIdsLong, null, startDate, endDate);
 
     // Create a map to aggregate SPCampaignStatistic objects
     Map<Long, SPCampaignStatistic> campaignAnalyticMap = new HashMap<>();
     for (SPCampaignReport report : reports) {
       Long campaignId = report.getCampaignId();
 
-      campaignAnalyticMap.computeIfAbsent(campaignId, k -> new SPCampaignStatistic(report))
-          .add(new SPCampaignStatistic(report));
+      campaignAnalyticMap.computeIfAbsent(campaignId, k -> new SPCampaignStatistic(report));
     }
 
     // Get all enabled SP campaigns by profile and portfolio
